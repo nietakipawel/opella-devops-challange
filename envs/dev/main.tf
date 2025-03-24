@@ -1,3 +1,6 @@
+provider "azurerm" {
+  features {}
+}
 
 locals {
   environment = "dev"
