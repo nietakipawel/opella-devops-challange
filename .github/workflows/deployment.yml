@@ -1,0 +1,55 @@
+name: Deploy Terraform Code
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform-deploy:
+    name: Deploy Oppella Terraform Code
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        environment: [dev, prod]
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Set up Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.8.0
+
+      # Install Checkov
+      - name: Install Checkov
+        run: |
+          pip install checkov
+
+      # Run Checkov Scanner
+      - name: Run Checkov Security Scan
+        run: |
+          checkov -d ./terraform/${{ matrix.environment }}
+
+      # Initialize Terraform
+      - name: Terraform Init
+        run: |
+          terraform -chdir=./terraform/${{ matrix.environment }} init
+
+      # Plan Terraform
+      - name: Terraform Plan
+        run: |
+          terraform -chdir=./terraform/${{ matrix.environment }} plan
+
+      # Apply Terraform
+      - name: Terraform Apply
+        if: github.event_name == 'push'
+        run: |
+          terraform -chdir=./terraform/${{ matrix.environment }} apply -auto-approve

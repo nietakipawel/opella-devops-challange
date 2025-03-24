@@ -1,0 +1,341 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_linux_virtual_machine.vm will be created
+  + resource "azurerm_linux_virtual_machine" "vm" {
+      + admin_username                                         = "azureuser"
+      + allow_extension_operations                             = true
+      + bypass_platform_safety_checks_on_user_schedule_enabled = false
+      + computer_name                                          = (known after apply)
+      + disable_password_authentication                        = true
+      + disk_controller_type                                   = (known after apply)
+      + extensions_time_budget                                 = "PT1H30M"
+      + id                                                     = (known after apply)
+      + location                                               = "westeurope"
+      + max_bid_price                                          = -1
+      + name                                                   = "vm-dev-westeurope"
+      + network_interface_ids                                  = (known after apply)
+      + patch_assessment_mode                                  = "ImageDefault"
+      + patch_mode                                             = "ImageDefault"
+      + platform_fault_domain                                  = -1
+      + priority                                               = "Regular"
+      + private_ip_address                                     = (known after apply)
+      + private_ip_addresses                                   = (known after apply)
+      + provision_vm_agent                                     = true
+      + public_ip_address                                      = (known after apply)
+      + public_ip_addresses                                    = (known after apply)
+      + resource_group_name                                    = "rg-dev-westeurope"
+      + size                                                   = "Standard_B1s"
+      + tags                                                   = {
+          + "ManagedBy"   = "Pawel"
+          + "Project"     = "OpellaInterview"
+          + "environment" = "dev"
+        }
+      + virtual_machine_id                                     = (known after apply)
+      + vm_agent_platform_updates_enabled                      = false
+
+      + os_disk {
+          + caching                   = "ReadWrite"
+          + disk_size_gb              = (known after apply)
+          + id                        = (known after apply)
+          + name                      = (known after apply)
+          + storage_account_type      = "Standard_LRS"
+          + write_accelerator_enabled = false
+        }
+
+      + source_image_reference {
+          + offer     = "UbuntuServer"
+          + publisher = "Canonical"
+          + sku       = "18.04-LTS"
+          + version   = "latest"
+        }
+
+      + termination_notification (known after apply)
+    }
+
+  # azurerm_network_interface.vm_nic will be created
+  + resource "azurerm_network_interface" "vm_nic" {
+      + accelerated_networking_enabled = false
+      + applied_dns_servers            = (known after apply)
+      + id                             = (known after apply)
+      + internal_domain_name_suffix    = (known after apply)
+      + ip_forwarding_enabled          = false
+      + location                       = "westeurope"
+      + mac_address                    = (known after apply)
+      + name                           = "nic-dev-westeurope"
+      + private_ip_address             = (known after apply)
+      + private_ip_addresses           = (known after apply)
+      + resource_group_name            = "rg-dev-westeurope"
+      + virtual_machine_id             = (known after apply)
+
+      + ip_configuration {
+          + gateway_load_balancer_frontend_ip_configuration_id = (known after apply)
+          + name                                               = "ipconfig1"
+          + primary                                            = (known after apply)
+          + private_ip_address                                 = (known after apply)
+          + private_ip_address_allocation                      = "Dynamic"
+          + private_ip_address_version                         = "IPv4"
+          + subnet_id                                          = (known after apply)
+        }
+    }
+
+  # azurerm_resource_group.rg will be created
+  + resource "azurerm_resource_group" "rg" {
+      + id       = (known after apply)
+      + location = "westeurope"
+      + name     = "rg-dev-westeurope"
+      + tags     = {
+          + "ManagedBy"   = "Pawel"
+          + "Project"     = "OpellaInterview"
+          + "environment" = "dev"
+        }
+    }
+
+  # module.vnet.azurerm_network_security_group.this["subnet1"] will be created
+  + resource "azurerm_network_security_group" "this" {
+      + id                  = (known after apply)
+      + location            = "westeurope"
+      + name                = "subnet1-nsg"
+      + resource_group_name = "rg-dev-westeurope"
+      + security_rule       = [
+          + {
+              + access                                     = "Deny"
+              + destination_address_prefix                 = "*"
+              + destination_address_prefixes               = []
+              + destination_application_security_group_ids = []
+              + destination_port_range                     = "*"
+              + destination_port_ranges                    = []
+              + direction                                  = "Inbound"
+              + name                                       = "deny_all"
+              + priority                                   = 100
+              + protocol                                   = "*"
+              + source_address_prefix                      = "*"
+              + source_address_prefixes                    = []
+              + source_application_security_group_ids      = []
+              + source_port_range                          = "*"
+              + source_port_ranges                         = []
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + tags                = {
+          + "ManagedBy"   = "Pawel"
+          + "Project"     = "OpellaInterview"
+          + "environment" = "dev"
+        }
+    }
+
+  # module.vnet.azurerm_network_security_group.this["subnet2"] will be created
+  + resource "azurerm_network_security_group" "this" {
+      + id                  = (known after apply)
+      + location            = "westeurope"
+      + name                = "subnet2-nsg"
+      + resource_group_name = "rg-dev-westeurope"
+      + security_rule       = [
+          + {
+              + access                                     = "Deny"
+              + destination_address_prefix                 = "*"
+              + destination_address_prefixes               = []
+              + destination_application_security_group_ids = []
+              + destination_port_range                     = "*"
+              + destination_port_ranges                    = []
+              + direction                                  = "Inbound"
+              + name                                       = "deny_all"
+              + priority                                   = 100
+              + protocol                                   = "*"
+              + source_address_prefix                      = "*"
+              + source_address_prefixes                    = []
+              + source_application_security_group_ids      = []
+              + source_port_range                          = "*"
+              + source_port_ranges                         = []
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + tags                = {
+          + "ManagedBy"   = "Pawel"
+          + "Project"     = "OpellaInterview"
+          + "environment" = "dev"
+        }
+    }
+
+  # module.vnet.azurerm_route_table.this["subnet1"] will be created
+  + resource "azurerm_route_table" "this" {
+      + bgp_route_propagation_enabled = true
+      + id                            = (known after apply)
+      + location                      = "westeurope"
+      + name                          = "subnet1-route-table"
+      + resource_group_name           = "rg-dev-westeurope"
+      + route                         = (known after apply)
+      + subnets                       = (known after apply)
+      + tags                          = {
+          + "ManagedBy"   = "Pawel"
+          + "Project"     = "OpellaInterview"
+          + "environment" = "dev"
+        }
+    }
+
+  # module.vnet.azurerm_route_table.this["subnet2"] will be created
+  + resource "azurerm_route_table" "this" {
+      + bgp_route_propagation_enabled = true
+      + id                            = (known after apply)
+      + location                      = "westeurope"
+      + name                          = "subnet2-route-table"
+      + resource_group_name           = "rg-dev-westeurope"
+      + route                         = (known after apply)
+      + subnets                       = (known after apply)
+      + tags                          = {
+          + "ManagedBy"   = "Pawel"
+          + "Project"     = "OpellaInterview"
+          + "environment" = "dev"
+        }
+    }
+
+  # module.vnet.azurerm_subnet.this["subnet1"] will be created
+  + resource "azurerm_subnet" "this" {
+      + address_prefixes                              = [
+          + "10.0.1.0/24",
+        ]
+      + default_outbound_access_enabled               = true
+      + id                                            = (known after apply)
+      + name                                          = "subnet1"
+      + private_endpoint_network_policies             = "Disabled"
+      + private_link_service_network_policies_enabled = true
+      + resource_group_name                           = "rg-dev-westeurope"
+      + virtual_network_name                          = "vnet-dev-westeurope"
+    }
+
+  # module.vnet.azurerm_subnet.this["subnet2"] will be created
+  + resource "azurerm_subnet" "this" {
+      + address_prefixes                              = [
+          + "10.0.2.0/24",
+        ]
+      + default_outbound_access_enabled               = true
+      + id                                            = (known after apply)
+      + name                                          = "subnet2"
+      + private_endpoint_network_policies             = "Disabled"
+      + private_link_service_network_policies_enabled = true
+      + resource_group_name                           = "rg-dev-westeurope"
+      + virtual_network_name                          = "vnet-dev-westeurope"
+    }
+
+  # module.vnet.azurerm_subnet_network_security_group_association.this["subnet1"] will be created
+  + resource "azurerm_subnet_network_security_group_association" "this" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = (known after apply)
+    }
+
+  # module.vnet.azurerm_subnet_network_security_group_association.this["subnet2"] will be created
+  + resource "azurerm_subnet_network_security_group_association" "this" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = (known after apply)
+    }
+
+  # module.vnet.azurerm_subnet_route_table_association.this["subnet1"] will be created
+  + resource "azurerm_subnet_route_table_association" "this" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vnet.azurerm_subnet_route_table_association.this["subnet2"] will be created
+  + resource "azurerm_subnet_route_table_association" "this" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vnet.azurerm_virtual_network.this will be created
+  + resource "azurerm_virtual_network" "this" {
+      + address_space                  = [
+          + "10.0.0.0/16",
+        ]
+      + dns_servers                    = (known after apply)
+      + guid                           = (known after apply)
+      + id                             = (known after apply)
+      + location                       = "westeurope"
+      + name                           = "vnet-dev-westeurope"
+      + private_endpoint_vnet_policies = "Disabled"
+      + resource_group_name            = "rg-dev-westeurope"
+      + subnet                         = (known after apply)
+      + tags                           = {
+          + "ManagedBy"   = "Pawel"
+          + "Project"     = "OpellaInterview"
+          + "environment" = "dev"
+        }
+    }
+
+  # module.vnet.local_file.readme will be created
+  + resource "local_file" "readme" {
+      + content              = <<-EOT
+            # Azure VNET Terraform Module
+            
+            This module provisions an Azure Virtual Network (VNET) with configurable subnets.
+            
+            ## Usage Example
+            
+            ```hcl
+            module "vnet" {
+              source              = "../../modules/vnet"
+              vnet_name           = "vnet-dev-westeurope"
+              location            = "westeurope"
+              resource_group_name = "rg-dev-westeurope"
+              address_space       = ["10.0.0.0/16"]
+              
+              subnets = {"subnet1":{"address_prefixes":["10.0.1.0/24"]},"subnet2":{"address_prefixes":["10.0.2.0/24"]}}
+              
+              tags = {"ManagedBy":"Pawel","Project":"OpellaInterview","environment":"dev"}
+            }
+            ```
+            
+            # Azure VNET Terraform Module - Inputs and Outputs
+            
+            ## Inputs
+            
+            | Name                   | Description                                        | Type                         | Default | Required |
+            |------------------------|----------------------------------------------------|------------------------------|---------|----------|
+            | `vnet_name`             | The name of the virtual network                    | `string`                     | n/a     | yes      |
+            | `location`             | The Azure region where the VNET will be deployed    | `string`                     | n/a     | yes      |
+            | `resource_group_name`  | The name of the resource group                     | `string`                     | n/a     | yes      |
+            | `address_space`        | A list of address spaces for the VNET               | `list(string)`               | n/a     | yes      |
+            | `subnets`              | A map of subnets with address prefixes              | `map(object({ address_prefixes = list(string) }))` | n/a     | yes      |
+            | `tags`                 | Tags to associate with the VNET                     | `map(string)`                | `{}`    | no       |
+            | `nsg_rules`            | A list of NSG rules to apply to each subnet        | `list(object({...}))`        | Default to deny rule | no       |
+            
+            ## Outputs
+            
+            | Name         | Description                                             | Value                                                   |
+            |--------------|---------------------------------------------------------|---------------------------------------------------------|
+            | `vnet_id`    | The ID of the created Virtual Network                    | `azurerm_virtual_network.this.id`                        |
+            | `subnet_ids` | A map of subnet names and their corresponding subnet IDs  | `{ for k, v in azurerm_subnet.this : k => v.id }`         |
+            
+            
+            
+            
+            
+            
+            ## Network Diagram
+            
+            ```mermaid
+            graph TD;
+              VNET[Azure Virtual Network] -->|Subnet 1| Subnet1
+              VNET -->|Subnet 2| Subnet2
+            ```
+        EOT
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = "../../modules/vnet/README.md"
+      + id                   = (known after apply)
+    }
+
+Plan: 15 to add, 0 to change, 0 to destroy.
